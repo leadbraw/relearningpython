@@ -1,5 +1,5 @@
 import random
-HANGMANPICS = ['''
+HANGMANPICS: str = ['''
                
     +---+
     |   |
@@ -62,11 +62,11 @@ donkey duck eagle ferret fox frog goat goose hawk lion lizard llama mole monkey 
 mule newt otter owl panda parrot pigeon python rabbit ram rat raven rhino salmon seal shark sheep
 skunk sloth snake spider stork swan tiger toad trout turkey turtle weasel whale wolf wombat'''.split()
 
-def getRandomWord(wordList):
-    wordIndex = random.randint(0, len(wordList) - 1)
+def getRandomWord(wordList: list) -> str:
+    wordIndex: int = random.randint(0, len(wordList) - 1)
     return wordList[wordIndex]
 
-def displayBoard(HANGMANPICS, missedLetters, correctLetters, secretWord):
+def displayBoard(HANGMANPICS: list, missedLetters: str, correctLetters: str, secretWord: str):
     print(HANGMANPICS[len(missedLetters)])
     print()
     print('Missed letters:', end=' ')
@@ -74,7 +74,7 @@ def displayBoard(HANGMANPICS, missedLetters, correctLetters, secretWord):
         print(letter, end=' ')
     print()
 
-    blanks = '_' * len(secretWord)
+    blanks: str = '_' * len(secretWord)
 
     for i in range(len(secretWord)):
         if secretWord[i] in correctLetters:
@@ -83,10 +83,10 @@ def displayBoard(HANGMANPICS, missedLetters, correctLetters, secretWord):
         print(letter, end= ' ')
     print()
 
-def getGuess(alreadyGuessed):
+def getGuess(alreadyGuessed: str) -> str:
     while True:
         print('Guess a letter')
-        guess = input()
+        guess: str = input()
         guess = guess.lower()
         if len(guess) != 1:
             print('Please enter a single letter.')
@@ -96,19 +96,20 @@ def getGuess(alreadyGuessed):
             print('Please enter a LETTER.')
         else:
             return guess
-def playAgain():
+        
+def playAgain() -> str:
     print('Do you want to play the game again? (yes or no)')
     return input().lower().startswith('y')
 
 print('H A N G M A N !')
-missedLetters = ''
-correctLetters = ''
-secretWord = getRandomWord(words)
-gameIsDone = False
+missedLetters: str = ''
+correctLetters: str = ''
+secretWord: str = getRandomWord(words)
+gameIsDone: bool = False
 
 while True:
     displayBoard(HANGMANPICS, missedLetters, correctLetters, secretWord)
-    guess = getGuess(missedLetters + correctLetters)
+    guess: str = getGuess(missedLetters + correctLetters)
     if guess in secretWord:
         correctLetters = correctLetters + guess
         foundAllLetters = True
