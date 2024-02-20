@@ -117,15 +117,14 @@ while True:
                 foundAllLetters = False
                 break
         if foundAllLetters:
-            print('Yes! The secret word is "' + secretWord + '"! You have won!') #TODO, use fstring?
+            print(f'Yes! The secret word is {secretWord}! You have won!')
             gameIsDone = True
     else:
         missedLetters = missedLetters + guess
         if len(missedLetters) == len(HANGMANPICS) - 1:
             displayBoard(HANGMANPICS, missedLetters, correctLetters, secretWord)
-            print('You have run out of guesses!\nAfter ' + str(len(missedLetters)) +
-                  ' missed guesses and ' + str(len(correctLetters)) + ' correct guesses, the word was "' +
-                  secretWord + '"')
+            print(f'You have run out of guesses!\nAfter {str(len(missedLetters))} missed guesses', 
+                  f'and {str(len(correctLetters))} correct guesses, the word was "{secretWord}"')
             gameIsDone = True
     
     if gameIsDone:
