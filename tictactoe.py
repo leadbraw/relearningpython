@@ -1,6 +1,6 @@
 import random
 
-def drawBoard(board):
+def drawBoard(board) -> None:
     print('   |   |')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |')
@@ -13,8 +13,8 @@ def drawBoard(board):
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |')
 
-def inputPlayerLetter():
-    letter = ''
+def inputPlayerLetter() -> list:
+    letter: str = ''
     while not (letter == 'X' or letter == 'O'):
         print('Do you want to be X or O?')
         letter = input().upper()
@@ -23,20 +23,20 @@ def inputPlayerLetter():
     else:
         return['O', 'X']
     
-def whoGoesFirst():
+def whoGoesFirst() -> str:
     if random.randint(0, 1) == 0:
         return 'computer'
     else:
         return 'player'
     
-def playAgain():
+def playAgain() -> bool:
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
 
-def makeMove(board, letter, move):
+def makeMove(board: list[str], letter: str, move: int) -> None:
     board[move] = letter
 
-def isWinner(bo, le):
+def isWinner(bo, le) -> bool:
     return((bo[7] == le and bo[8] == le and bo[9] == le)
            or (bo[4] == le and bo[5] == le and bo[6] == le)
            or (bo[1] == le and bo[2] == le and bo[3] == le)
@@ -46,25 +46,25 @@ def isWinner(bo, le):
            or (bo[7] == le and bo[5] == le and bo[3] == le)
            or (bo[9] == le and bo[5] == le and bo[1] == le))
 
-def getBoardCopy(board):
+def getBoardCopy(board: list[str]) -> list[str]:
     dupeBoard = []
     for i in board:
         dupeBoard.append(i)
 
     return dupeBoard
 
-def isSpaceFree(board, move):
+def isSpaceFree(board: list[str], move: int) -> bool:
     return board[move] == ' '
 
-def getPlayerMove(board):
-    move = ' '
+def getPlayerMove(board) -> int:
+    move: str = ' '
     while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
         print('What is your next move? (1-9)')
         move = input()
     return int(move)
 
-def chooseRandomMoveFromList(board, movesList):
-    possibleMoves = []
+def chooseRandomMoveFromList(board: list[str], movesList: list[int]) -> int | None:
+    possibleMoves: list = []
     for i in movesList:
         if isSpaceFree(board, i):
             possibleMoves.append(i)
@@ -73,7 +73,7 @@ def chooseRandomMoveFromList(board, movesList):
     else:
         return None
     
-def getComputerMove(board, computerLetter):
+def getComputerMove(board: list[str], computerLetter: str) -> int:
     if computerLetter == 'X':
         playerLetter = 'O'
     else:
@@ -91,7 +91,7 @@ def getComputerMove(board, computerLetter):
         return 5
     return chooseRandomMoveFromList(board, [2, 4, 6, 8])
 
-def isBoardFull(board):
+def isBoardFull(board) -> bool:
     for i in range(1, 10):
         if isSpaceFree(board, i):
             return False
@@ -100,16 +100,16 @@ def isBoardFull(board):
 print('Welcome to Tic-Tac-Toe!')
 
 while True:
-    theBoard = [' '] * 10
+    theBoard: list[str] = [' '] * 10
     playerLetter, computerLetter = inputPlayerLetter()
-    turn = whoGoesFirst()
+    turn: str = whoGoesFirst()
     print(f'The {turn} turn will go first.')
-    gameIsPlaying = True
+    gameIsPlaying: bool = True
 
     while gameIsPlaying:
         if turn == 'player':
             drawBoard(theBoard)
-            move = getPlayerMove(theBoard)
+            move: int = getPlayerMove(theBoard)
             makeMove(theBoard, playerLetter, move)
             if isWinner(theBoard, playerLetter):
                 drawBoard(theBoard)
@@ -123,7 +123,7 @@ while True:
                 else:
                     turn = 'computer'
         else:
-            move = getComputerMove(theBoard, computerLetter)
+            move: int = getComputerMove(theBoard, computerLetter)
             makeMove(theBoard, computerLetter, move)
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
